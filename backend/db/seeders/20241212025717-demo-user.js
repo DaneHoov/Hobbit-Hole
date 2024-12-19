@@ -46,7 +46,6 @@ module.exports = {
       {
         username: { [Op.in]: ["Demo-lition", "FakeUser1", "FakeUser2"] },
       },
-      {}
     );
   },
 };
