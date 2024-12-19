@@ -21,9 +21,13 @@ const validateSpot = [
     .exists({ checkFalsy: true })
     .withMessage("Country is required"),
   check("lat")
-    .exists({ checkFalsy: true}),
+    .exists({ checkFalsy: true})
+    .isInt({min: -90, max: 90})
+    .withMessage("Latitude must be within -90 and 90"),
   check("lng")
-    .exists({checkFalsy: true}),
+    .exists({checkFalsy: true})
+    .isInt({min: -180, max: 180})
+    .withMessage("Longitude must be within -180 and 180"),
   check("name")
     .exists({checkFalsy: true})
     .isLength({min: 1, max: 49})
@@ -32,7 +36,7 @@ const validateSpot = [
     .exists({ checkFalsy: true })
     .withMessage("Description is required"),
   check("price")
-    .isCurrency({allow_negatives: false})
+    .isInt({min: 1})
     .withMessage("Price per day must be a positive number"),
   handleValidationErrors,
 ]
