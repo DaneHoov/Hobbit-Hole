@@ -401,7 +401,7 @@ Creates and returns a new spot.
 - Request
 
   - Method: ? POST
-  - Route path: ? /api/spots
+  - Route path: ? /api/session/spots
   - Headers:
     - Content-Type: application/json
   - Body:

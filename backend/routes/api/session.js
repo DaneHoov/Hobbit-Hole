@@ -2,10 +2,11 @@ const express = require("express");
 const { Op } = require("sequelize");
 const bcrypt = require("bcryptjs");
 
-const { setTokenCookie, restoreUser } = require("../../utils/auth");
+const { setTokenCookie, restoreUser, requireAuth } = require("../../utils/auth");
 const { User } = require("../../db/models");
 const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
+const { Spot } = require('./spots')
 const router = express.Router();
 
 // Log out
@@ -73,5 +74,30 @@ router.post("/", validateLogin, async (req, res, next) => {
     user: safeUser,
   });
 });
+
+//Get Current User
+router.get('/', (req, res) => {
+  if(req.user) {
+    return res.json(user)
+  }
+})
+
+//Get all spots owned by Current User
+router.get('/session/spots', requireAuth, async (req, res, next) => {
+  const userId = req.user.id; // Assuming req.user is populated by `requireAuth`
+
+  const spots = await Spot.findAll({
+    where: { ownerId: userId },
+    attributes: [
+      'id', 'ownerId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name',
+      'description', 'price', 'createdAt', 'updatedAt',
+    ],
+  });
+
+
+  res.status(200).json(spots);
+});
+
+
 
 module.exports = router;

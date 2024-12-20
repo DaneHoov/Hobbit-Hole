@@ -22,11 +22,11 @@ const validateSpot = [
     .withMessage("Country is required"),
   check("lat")
     .exists({ checkFalsy: true})
-    .isInt({min: -90, max: 90})
+    .isFloat({min: -90, max: 90})
     .withMessage("Latitude must be within -90 and 90"),
   check("lng")
     .exists({checkFalsy: true})
-    .isInt({min: -180, max: 180})
+    .isFloat({min: -180, max: 180})
     .withMessage("Longitude must be within -180 and 180"),
   check("name")
     .exists({checkFalsy: true})
@@ -42,29 +42,35 @@ const validateSpot = [
 ]
 
 //Create a spot
-router.post('/', validateSpot, async (req, res) => {
-    const {address, city, state, country, lat, lng, name, description, price} = req.body;
-    const spot = await Spot.create({address, city, state, country, lat, lng, name, description, price});
+router.post('/', requireAuth, validateSpot, async (req, res) => {
+  const {address, city, state, country, lat, lng, name, description, price} = req.body;
+  const spot = await Spot.create({ownerId: req.user.id, address, city, state, country, lat, lng, name, description, price});
 
-    const safeSpot = {
-        id: spot.id,
-        address: spot.address,
-        city: spot.city,
-        state: spot.state,
-        country: spot.country,
-        lat: spot.lat,
-        lng: spot.lng,
-        name: spot.name,
-        description: spot.description,
-        price: spot.price
-    }
+  const safeSpot = {
+      id: spot.id,
+      ownerId: spot.ownerId,
+      address: spot.address,
+      city: spot.city,
+      state: spot.state,
+      country: spot.country,
+      lat: spot.lat,
+      lng: spot.lng,
+      name: spot.name,
+      description: spot.description,
+      price: spot.price
+  }
 
-    await setTokenCookie(res, safeUser);
 
-    return res.json({
-        spot: safeSpot
-      });
+
+  return res.json({
+      spot: safeSpot
+    });
 })
 
+//Get all spots
+router.get('/', async(req, res) => {
+  const spots = await Spot.findAll()
+  res.json(spots);
+})
 
 module.exports = router
