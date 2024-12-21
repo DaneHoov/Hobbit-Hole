@@ -83,8 +83,8 @@ router.get('/', (req, res) => {
 })
 
 //Get all spots owned by Current User
-router.get('/session/spots', requireAuth, async (req, res, next) => {
-  const userId = req.user.id; // Assuming req.user is populated by `requireAuth`
+router.get('/spots/current', requireAuth, async (req, res, next) => {
+  const userId = req.user.id; 
 
   const spots = await Spot.findAll({
     where: { ownerId: userId },
