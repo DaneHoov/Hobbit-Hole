@@ -106,4 +106,43 @@ router.get("/", requireAuth, async (req, res) => {
   return res.status(200).json({ Spots: spots });
 });
 
+//Get details of a Spot from an id
+router.get("/:id", async (req, res) => {
+  const spotId = req.params.id;
+
+  const spot = await Spot.findOne({
+    where: { id: spotId },
+    attributes: [
+      "id",
+      "ownerId",
+      "address",
+      "city",
+      "state",
+      "country",
+      "lat",
+      "lng",
+      "name",
+      "description",
+      "price",
+      "createdAt",
+      "updatedAt",
+    ],
+    include: [
+      {
+        model: SpotImage,
+        attributes: ["id", "url", "preview"],
+      },
+      {
+        model: User,
+        as: "Owner",
+        attributes: ["id", "firstName", "lastName"],
+      },
+    ],
+  });
+
+  if (!spot) {
+    return res.status(404).json({ message: "Spot couldn't be found" });
+  }
+});
+
 module.exports = router;
