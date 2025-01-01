@@ -402,4 +402,48 @@ router.post(
   }
 );
 
+//Delete spot image
+router.delete(
+  "/api/session/spots/:id/images/:imageId",
+  authenticate,
+  async (req, res) => {
+    const userId = req.user.id; // Assuming user ID is available after authentication
+    const spotId = req.params.id;
+    const imageId = req.params.imageId;
+
+    const spot = await Spot.findByPk(spotId);
+
+    if (!spot) {
+      return res.status(404).json({
+        message: "Spot couldn't be found",
+      });
+    }
+
+    if (spot.ownerId !== userId) {
+      return res.status(403).json({
+        message: "You don't have permission to delete this image",
+      });
+    }
+
+    const spotImage = await SpotImage.findOne({
+      where: {
+        id: imageId,
+        spotId: spotId,
+      },
+    });
+
+    if (!spotImage) {
+      return res.status(404).json({
+        message: "Spot Image couldn't be found",
+      });
+    }
+
+    await spotImage.destroy();
+
+    res.status(200).json({
+      message: "Successfully deleted",
+    });
+  }
+);
+
 module.exports = router;
