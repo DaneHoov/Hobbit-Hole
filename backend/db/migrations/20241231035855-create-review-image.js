@@ -13,7 +13,8 @@ module.exports = {
         type: Sequelize.STRING
       },
       reviewId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {model: 'Review', key: 'id'}
       },
       createdAt: {
         allowNull: false,
