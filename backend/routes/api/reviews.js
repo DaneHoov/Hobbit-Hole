@@ -97,3 +97,27 @@ router.put("/:id", authenticate, authorizeReviewOwner, async (req, res) => {
     updatedAt: reviewToUpdate.updatedAt,
   });
 });
+
+//Delete a review
+router.delete(
+  "/api/session/reviews/:id",
+  authenticate,
+  authorizeReviewOwner,
+  async (req, res) => {
+    const reviewId = req.params.id;
+
+    const reviewToDelete = await Review.findByPk(reviewId);
+
+    if (!reviewToDelete) {
+      return res.status(404).json({
+        message: "Review couldn't be found",
+      });
+    }
+
+    await reviewToDelete.destroy();
+
+    res.status(200).json({
+      message: "Successfully deleted",
+    });
+  }
+);
