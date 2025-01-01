@@ -266,4 +266,39 @@ router.put("/bookings/:id", authenticate, async (req, res) => {
   });
 });
 
+//Delete a booking
+router.delete("/api/session/bookings/:id", authenticate, async (req, res) => {
+  const userId = req.user.id;
+  const bookingId = req.params.id;
+
+  const booking = await Booking.findByPk(bookingId, {
+    include: [{ model: Spot, attributes: ["ownerId"] }],
+  });
+
+  if (!booking) {
+    return res.status(404).json({
+      message: "Booking couldn't be found",
+    });
+  }
+
+  if (booking.userId !== userId && booking.Spot.ownerId !== userId) {
+    return res.status(403).json({
+      message: "You don't have permission to delete this booking",
+    });
+  }
+
+  const currentDate = new Date();
+  if (new Date(booking.startDate) < currentDate) {
+    return res.status(403).json({
+      message: "Bookings that have been started can't be deleted",
+    });
+  }
+
+  await booking.destroy();
+
+  res.status(200).json({
+    message: "Successfully deleted",
+  });
+});
+
 module.exports = router;
