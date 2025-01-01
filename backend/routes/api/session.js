@@ -187,4 +187,83 @@ router.get("/bookings", authenticate, async (req, res) => {
   });
 });
 
+//Edit booking
+router.put("/bookings/:id", authenticate, async (req, res) => {
+  const userId = req.user.id;
+  const bookingId = req.params.id;
+  const { startDate, endDate } = req.body;
+
+  const booking = await Booking.findByPk(bookingId);
+
+  if (!booking) {
+    return res.status(404).json({
+      message: "Booking couldn't be found",
+    });
+  }
+
+  if (booking.userId !== userId) {
+    return res.status(403).json({
+      message: "You cannot edit someone else's booking",
+    });
+  }
+
+  const currentDate = new Date();
+  if (new Date(booking.endDate) < currentDate) {
+    return res.status(403).json({
+      message: "Past bookings can't be modified",
+    });
+  }
+
+  if (new Date(startDate) < currentDate) {
+    return res.status(400).json({
+      message: "Bad Request",
+      errors: {
+        startDate: "startDate cannot be in the past",
+      },
+    });
+  }
+
+  if (new Date(endDate) <= new Date(startDate)) {
+    return res.status(400).json({
+      message: "Bad Request",
+      errors: {
+        endDate: "endDate cannot be on or before startDate",
+      },
+    });
+  }
+
+  const conflictingBooking = await Booking.findOne({
+    where: {
+      spotId: booking.spotId,
+      startDate: { [Op.lt]: endDate },
+      endDate: { [Op.gt]: startDate },
+      id: { [Op.ne]: bookingId },
+    },
+  });
+
+  if (conflictingBooking) {
+    return res.status(403).json({
+      message: "Sorry, this spot is already booked for the specified dates",
+      errors: {
+        startDate: "Start date conflicts with an existing booking",
+        endDate: "End date conflicts with an existing booking",
+      },
+    });
+  }
+
+  booking.startDate = startDate;
+  booking.endDate = endDate;
+  await booking.save();
+
+  res.status(200).json({
+    id: booking.id,
+    spotId: booking.spotId,
+    userId: booking.userId,
+    startDate: booking.startDate,
+    endDate: booking.endDate,
+    createdAt: booking.createdAt,
+    updatedAt: booking.updatedAt,
+  });
+});
+
 module.exports = router;
