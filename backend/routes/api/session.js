@@ -149,4 +149,42 @@ router.get("/reviews", requireAuth, async (req, res) => {
   return res.status(200).json({ Reviews: reviews });
 });
 
+//Get all of current users bookings
+router.get("/bookings", authenticate, async (req, res) => {
+  const userId = req.user.id;
+
+  const bookings = await Booking.findAll({
+    where: { userId },
+    include: {
+      model: Spot,
+      attributes: [
+        "id",
+        "ownerId",
+        "address",
+        "city",
+        "state",
+        "country",
+        "lat",
+        "lng",
+        "name",
+        "price",
+        "previewImage",
+      ],
+    },
+  });
+
+  res.status(200).json({
+    Bookings: bookings.map((booking) => ({
+      id: booking.id,
+      spotId: booking.spotId,
+      Spot: booking.Spot,
+      userId: booking.userId,
+      startDate: booking.startDate,
+      endDate: booking.endDate,
+      createdAt: booking.createdAt,
+      updatedAt: booking.updatedAt,
+    })),
+  });
+});
+
 module.exports = router;
