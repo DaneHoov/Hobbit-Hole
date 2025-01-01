@@ -14,8 +14,12 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   ReviewImage.init({
-    url: DataTypes.STRING,
-    reviewId: DataTypes.INTEGER,
+    url:{
+      DataTypes.STRING,
+    },
+    reviewId: {
+      DataTypes.INTEGER,
+    },
     createdAt: {
       type: DataTypes.DATE,
       defaultValue: sequelize.literal("CURRENT_TIMESTAMP")
