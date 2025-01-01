@@ -79,8 +79,6 @@ router.get("/", async (req, res) => {
   res.json(spots);
 });
 
-
-
 //Get details of a Spot from an id
 router.get("/:id", async (req, res) => {
   const spotId = req.params.id;
@@ -118,6 +116,33 @@ router.get("/:id", async (req, res) => {
   if (!spot) {
     return res.status(404).json({ message: "Spot couldn't be found" });
   }
+});
+
+//Add image to spot based on Spot id
+router.post("/:id/images", requireAuth, async (req, res) => {
+  const spotId = req.params.id;
+  const { url, preview } = req.body;
+
+  //spot exists and belongs to current user
+  const spot = await Spot.findOne({
+    where: { id: spotId, userId: req.user.id },
+  });
+
+  if (!spot) {
+    return res.status(404).json({ message: "Spot couldn't be found" });
+  }
+
+  const image = await Image.create({
+    spotId,
+    url,
+    preview,
+  });
+
+  return res.status(201).json({
+    id: image.id,
+    url: image.url,
+    preview: image.preview,
+  });
 });
 
 module.exports = router;
