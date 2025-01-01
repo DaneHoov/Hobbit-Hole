@@ -50,3 +50,50 @@ router.post("/:id/images", requireAuth, async (req, res) => {
 
   return res.status(201).json(newImage);
 });
+
+//Edit review
+router.put("/:id", authenticate, authorizeReviewOwner, async (req, res) => {
+  const { review, stars } = req.body;
+  const reviewId = req.params.id;
+
+  if (!review || !stars) {
+    return res.status(400).json({
+      message: "Bad Request",
+      errors: {
+        review: "Review text is required",
+        stars: "Stars must be an integer from 1 to 5",
+      },
+    });
+  }
+
+  if (typeof stars !== "number" || stars < 1 || stars > 5) {
+    return res.status(400).json({
+      message: "Bad Request",
+      errors: {
+        stars: "Stars must be an integer from 1 to 5",
+      },
+    });
+  }
+
+  const reviewToUpdate = await Review.findByPk(reviewId);
+
+  if (!reviewToUpdate) {
+    return res.status(404).json({
+      message: "Review couldn't be found",
+    });
+  }
+
+  reviewToUpdate.review = review;
+  reviewToUpdate.stars = stars;
+  await reviewToUpdate.save();
+
+  res.status(200).json({
+    id: reviewToUpdate.id,
+    userId: reviewToUpdate.userId,
+    spotId: reviewToUpdate.spotId,
+    review: reviewToUpdate.review,
+    stars: reviewToUpdate.stars,
+    createdAt: reviewToUpdate.createdAt,
+    updatedAt: reviewToUpdate.updatedAt,
+  });
+});
