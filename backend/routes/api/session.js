@@ -2,7 +2,11 @@ const express = require("express");
 const { Op } = require("sequelize");
 const bcrypt = require("bcryptjs");
 
-const { setTokenCookie, restoreUser, requireAuth } = require("../../utils/auth");
+const {
+  setTokenCookie,
+  restoreUser,
+  requireAuth,
+} = require("../../utils/auth");
 const { User, Spot } = require("../../db/models");
 const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
@@ -75,11 +79,11 @@ router.post("/", validateLogin, async (req, res, next) => {
 });
 
 //Get Current User
-router.get('/', (req, res) => {
-  if(req.user) {
-    return res.json(user)
+router.get("/", (req, res) => {
+  if (req.user) {
+    return res.json(user);
   }
-})
+});
 
 //Get all spots by current user
 router.get("/spots/current", requireAuth, async (req, res) => {
@@ -108,7 +112,41 @@ router.get("/spots/current", requireAuth, async (req, res) => {
   return res.status(200).json({ Spots: spots });
 });
 
+//get all reviews of current user
+router.get("/reviews", requireAuth, async (req, res) => {
+  const userId = req.user.id;
 
+  const reviews = await Review.findAll({
+    where: { userId },
+    include: [
+      {
+        model: User,
+        attributes: ["id", "firstName", "lastName"],
+      },
+      {
+        model: Spot,
+        attributes: [
+          "id",
+          "ownerId",
+          "address",
+          "city",
+          "state",
+          "country",
+          "lat",
+          "lng",
+          "name",
+          "price",
+          ["previewImage", "previewImage"],
+        ],
+      },
+      {
+        model: ReviewImage,
+        attributes: ["id", "url"],
+      },
+    ],
+  });
 
+  return res.status(200).json({ Reviews: reviews });
+});
 
 module.exports = router;
