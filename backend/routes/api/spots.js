@@ -446,4 +446,79 @@ router.delete(
   }
 );
 
+//add query filters to get all spots
+router.get("/api/spots", async (req, res) => {
+  const {
+    page = 1,
+    size = 20,
+    minLat,
+    maxLat,
+    minLng,
+    maxLng,
+    minPrice,
+    maxPrice,
+  } = req.query;
+
+  //validate query params
+  const errors = {};
+  if (page < 1) errors.page = "Page must be greater than or equal to 1";
+  if (size < 1 || size > 20) errors.size = "Size must be between 1 and 20";
+  if (minLat && isNaN(minLat)) errors.minLat = "Minimum latitude is invalid";
+  if (maxLat && isNaN(maxLat)) errors.maxLat = "Maximum latitude is invalid";
+  if (minLng && isNaN(minLng)) errors.minLng = "Minimum longitude is invalid";
+  if (maxLng && isNaN(maxLng)) errors.maxLng = "Maximum longitude is invalid";
+  if (minPrice && isNaN(minPrice))
+    errors.minPrice = "Minimum price must be greater than or equal to 0";
+  if (maxPrice && isNaN(maxPrice))
+    errors.maxPrice = "Maximum price must be greater than or equal to 0";
+
+  if (Object.keys(errors).length > 0) {
+    return res.status(400).json({ message: "Bad Request", errors });
+  }
+
+  //apply filters to db query
+  const filters = {};
+
+  if (minLat) filters.lat = { [Op.gte]: parseFloat(minLat) };
+  if (maxLat) filters.lat = { [Op.lte]: parseFloat(maxLat) };
+  if (minLng) filters.lng = { [Op.gte]: parseFloat(minLng) };
+  if (maxLng) filters.lng = { [Op.lte]: parseFloat(maxLng) };
+  if (minPrice) filters.price = { [Op.gte]: parseFloat(minPrice) };
+  if (maxPrice) filters.price = { [Op.lte]: parseFloat(maxPrice) };
+
+  const spots = await Spot.findAll({
+    where: filters,
+    limit: size,
+    offset: (page - 1) * size,
+    attributes: [
+      "id",
+      "ownerId",
+      "address",
+      "city",
+      "state",
+      "country",
+      "lat",
+      "lng",
+      "name",
+      "description",
+      "price",
+      "avgRating",
+      "previewImage",
+      "createdAt",
+      "updatedAt",
+    ],
+  });
+
+  const totalSpots = await Spot.count({ where: filters });
+  const totalPages = Math.ceil(totalSpots / size);
+
+  res.status(200).json({
+    Spots: spots,
+    page: page,
+    size: size,
+    totalPages: totalPages,
+    totalSpots: totalSpots,
+  });
+});
+
 module.exports = router;
