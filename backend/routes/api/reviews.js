@@ -52,7 +52,7 @@ router.post("/:id/images", requireAuth, async (req, res) => {
 });
 
 //Edit review
-router.put("/:id", authenticate, authorizeReviewOwner, async (req, res) => {
+router.put("/reviews/:id", requireAuth, async (req, res) => {
   const { review, stars } = req.body;
   const reviewId = req.params.id;
 
@@ -98,70 +98,3 @@ router.put("/:id", authenticate, authorizeReviewOwner, async (req, res) => {
   });
 });
 
-//Delete a review
-router.delete(
-  "/api/session/reviews/:id",
-  authenticate,
-  authorizeReviewOwner,
-  async (req, res) => {
-    const reviewId = req.params.id;
-
-    const reviewToDelete = await Review.findByPk(reviewId);
-
-    if (!reviewToDelete) {
-      return res.status(404).json({
-        message: "Review couldn't be found",
-      });
-    }
-
-    await reviewToDelete.destroy();
-
-    res.status(200).json({
-      message: "Successfully deleted",
-    });
-  }
-);
-
-//Delete review image
-router.delete(
-  "/api/session/reviews/:reviewId/images/:imageId",
-  authenticate,
-  async (req, res) => {
-    const userId = req.user.id;
-    const reviewId = req.params.reviewId;
-    const imageId = req.params.imageId;
-
-    const review = await Review.findByPk(reviewId);
-
-    if (!review) {
-      return res.status(404).json({
-        message: "Review couldn't be found",
-      });
-    }
-
-    if (review.userId !== userId) {
-      return res.status(403).json({
-        message: "You don't have permission to delete this image",
-      });
-    }
-
-    const reviewImage = await ReviewImage.findOne({
-      where: {
-        id: imageId,
-        reviewId: reviewId,
-      },
-    });
-
-    if (!reviewImage) {
-      return res.status(404).json({
-        message: "Review Image couldn't be found",
-      });
-    }
-
-    await reviewImage.destroy();
-
-    res.status(200).json({
-      message: "Successfully deleted",
-    });
-  }
-);

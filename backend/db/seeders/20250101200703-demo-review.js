@@ -2,7 +2,7 @@
 
 const { options } = require("../../routes/api/reviews");
 const { sequelize } = require("../models");
-const Review = require('../models/review');
+const { Review } = require('../models');
 const bcrypt = require("bcryptjs");
 
 /** @type {import('sequelize-cli').Migration} */
@@ -10,6 +10,8 @@ module.exports = {
   async up (queryInterface, Sequelize) {
     await Review.bulkCreate([
       {
+        userId: 1,
+        spotId: 1,
         review: "My dissapointment is immeasurable, and my day is ruined.",
         stars: 1
       }
