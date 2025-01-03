@@ -1,8 +1,7 @@
 'use strict';
 
 const { options } = require("../../routes/api/reviews");
-const { sequelize } = require("../models");
-const { Review } = require('../models');
+const { Review } = require("../models");
 const bcrypt = require("bcryptjs");
 
 /** @type {import('sequelize-cli').Migration} */
@@ -14,6 +13,12 @@ module.exports = {
         spotId: 1,
         review: "My dissapointment is immeasurable, and my day is ruined.",
         stars: 1
+      },
+      {
+        userId: 2,
+        spotId: 2,
+        review: 'Host cuddled me every night. 10/10 would book again.',
+        stars: 5
       }
     ])
   },
@@ -24,7 +29,7 @@ module.exports = {
     return queryInterface.bulkDelete(
       options,
       {
-        stars: { [Op.in]: [1] },
+        stars: { [Op.in]: [1, 5] },
       },
     )
   }
