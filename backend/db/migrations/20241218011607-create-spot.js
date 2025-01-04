@@ -20,7 +20,7 @@ module.exports = {
       },
       ownerId: {
         type: Sequelize.INTEGER,
-        references: {Model: 'User', key: 'id'}
+        references: {model: 'Users', key: 'id'}
       },
       address: {
         type: Sequelize.STRING
@@ -62,9 +62,10 @@ module.exports = {
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal("CURRENT_TIMESTAMP")
       }
-    });
+    }, options);
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Spots');
+    options.tableName = 'Spots'
+    await queryInterface.dropTable(options);
   }
 };

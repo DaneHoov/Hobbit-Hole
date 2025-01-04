@@ -1,4 +1,10 @@
 'use strict';
+
+let options = {};
+if (process.env.NODE_ENV === "production") {
+  options.schema = process.env.SCHEMA; // define your schema in options object
+}
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -11,11 +17,11 @@ module.exports = {
       },
       userId: {
         type: Sequelize.INTEGER,
-        references: {model: 'User', key: 'id'}
+        references: {model: 'Users', key: 'id'}
       },
       spotId: {
         type: Sequelize.INTEGER,
-        references: {model:'Spot', key: 'id'}
+        references: {model:'Spots', key: 'id'}
       },
       review: {
         type: Sequelize.STRING
