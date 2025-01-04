@@ -19,7 +19,8 @@ module.exports = {
         type: Sequelize.STRING
       },
       previewImage: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
       },
       spotId: {
         type: Sequelize.INTEGER,

@@ -2,7 +2,7 @@ const express = require("express");
 const bcrypt = require("bcryptjs");
 
 const { requireAuth } = require("../../utils/auth");
-const { Spot, User } = require("../../db/models");
+const { Spot, User, SpotImage } = require("../../db/models");
 const router = express.Router();
 const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
@@ -99,15 +99,16 @@ router.get("/:id", async (req, res) => {
       "price",
       "createdAt",
       "updatedAt",
+      "avgRating",
+      "numReviews"
     ],
     include: [
       {
         model: SpotImage,
-        attributes: ["id", "url", "preview"],
+        attributes: ["id", "url", "previewImage"],
       },
       {
         model: User,
-        as: "Owner",
         attributes: ["id", "firstName", "lastName"],
       },
     ],

@@ -87,10 +87,10 @@ router.get("/", (req, res) => {
 
 //Get all spots by current user
 router.get("/spots/current", requireAuth, async (req, res) => {
-  const userId = req.user.id;
+  const ownerId = req.user.id;
 
   const spots = await Spot.findAll({
-    where: { ownerId: userId },
+    where: { ownerId: ownerId },
     attributes: [
       "id",
       "ownerId",
@@ -114,10 +114,10 @@ router.get("/spots/current", requireAuth, async (req, res) => {
 
 //get all reviews of current user
 router.get("/reviews/current", requireAuth, async (req, res) => {
-  const userId = req.user.id;
+  const ownerId = req.user.id;
 
   const reviews = await Review.findAll({
-    where: { userId },
+    where: { ownerId },
     include: [
       {
         model: User,
@@ -156,14 +156,14 @@ router.get("/reviews/current", requireAuth, async (req, res) => {
 router.post("/spots/:id/reviews", requireAuth, async (req, res) => {
   const spotId = req.params.id;
   const { review, stars } = req.body;
-  const userId = req.user.id;
+  const ownerId = req.user.id;
 
   const spot = await Spot.findByPk(spotId);
   if (!spot) {
     return res.status(404).json({ message: "Spot couldn't be found" });
   }
 
-  const existingReview = await Review.findOne({ where: { spotId, userId } });
+  const existingReview = await Review.findOne({ where: { spotId, ownerId } });
   if (existingReview) {
     return res
       .status(403)
@@ -184,7 +184,7 @@ router.post("/spots/:id/reviews", requireAuth, async (req, res) => {
   }
 
   const newReview = await Review.create({
-    userId,
+    ownerId,
     spotId,
     review,
     stars,
@@ -231,7 +231,7 @@ router.put("/reviews/:id", requireAuth, async (req, res) => {
 
   res.status(200).json({
     id: reviewToUpdate.id,
-    userId: reviewToUpdate.userId,
+    ownerId: reviewToUpdate.ownerId,
     spotId: reviewToUpdate.spotId,
     review: reviewToUpdate.review,
     stars: reviewToUpdate.stars,
@@ -269,7 +269,7 @@ router.post("/spots/:id/images", requireAuth, async (req, res) => {
   const { url, preview } = req.body;
 
   const spot = await Spot.findOne({
-    where: { id: spotId, userId: req.user.id },
+    where: { id: spotId, ownerId: req.user.id },
   });
 
   if (!spot) {
@@ -326,7 +326,7 @@ router.put("/spots/:id", requireAuth, async (req, res) => {
 
   //spot exists and belongs to the current user
   const spot = await Spot.findOne({
-    where: { id: spotId, userId: req.user.id },
+    where: { id: spotId, ownerId: req.user.id },
   });
 
   if (!spot) {
@@ -353,7 +353,7 @@ router.delete("/spots/:id", requireAuth, async (req, res) => {
   const spotId = req.params.id;
 
   const spot = await Spot.findOne({
-    where: { id: spotId, userId: req.user.id },
+    where: { id: spotId, ownerId: req.user.id },
   });
 
   if (!spot) {
@@ -367,10 +367,10 @@ router.delete("/spots/:id", requireAuth, async (req, res) => {
 
 //Get all of current users bookings
 router.get("/users/:id/bookings", requireAuth, async (req, res) => {
-  const userId = req.user.id;
+  const ownerId = req.user.id;
 
   const bookings = await Booking.findAll({
-    where: { userId },
+    where: { ownerId },
     include: {
       model: Spot,
       attributes: [
@@ -394,7 +394,7 @@ router.get("/users/:id/bookings", requireAuth, async (req, res) => {
       id: booking.id,
       spotId: booking.spotId,
       Spot: booking.Spot,
-      userId: booking.userId,
+      ownerId: booking.ownerId,
       startDate: booking.startDate,
       endDate: booking.endDate,
       createdAt: booking.createdAt,
@@ -405,7 +405,7 @@ router.get("/users/:id/bookings", requireAuth, async (req, res) => {
 
 //Edit booking
 router.put("/bookings/:id", requireAuth, async (req, res) => {
-  const userId = req.user.id;
+  const ownerId = req.user.id;
   const bookingId = req.params.id;
   const { startDate, endDate } = req.body;
 
@@ -417,7 +417,7 @@ router.put("/bookings/:id", requireAuth, async (req, res) => {
     });
   }
 
-  if (booking.userId !== userId) {
+  if (booking.ownerId !== ownerId) {
     return res.status(403).json({
       message: "You cannot edit someone else's booking",
     });
@@ -474,7 +474,7 @@ router.put("/bookings/:id", requireAuth, async (req, res) => {
   res.status(200).json({
     id: booking.id,
     spotId: booking.spotId,
-    userId: booking.userId,
+    ownerId: booking.ownerId,
     startDate: booking.startDate,
     endDate: booking.endDate,
     createdAt: booking.createdAt,
@@ -484,7 +484,7 @@ router.put("/bookings/:id", requireAuth, async (req, res) => {
 
 //Delete a booking
 router.delete("/bookings/:id", requireAuth, async (req, res) => {
-  const userId = req.user.id;
+  const ownerId = req.user.id;
   const bookingId = req.params.id;
 
   const booking = await Booking.findByPk(bookingId, {
@@ -497,7 +497,7 @@ router.delete("/bookings/:id", requireAuth, async (req, res) => {
     });
   }
 
-  if (booking.userId !== userId && booking.Spot.ownerId !== userId) {
+  if (booking.ownerId !== ownerId && booking.Spot.ownerId !== ownerId) {
     return res.status(403).json({
       message: "You don't have permission to delete this booking",
     });
@@ -522,7 +522,7 @@ router.delete(
   "/spots/:id/images/:imageId",
   requireAuth,
   async (req, res) => {
-    const userId = req.user.id; // Assuming user ID is available after authentication
+    const ownerId = req.user.id; // Assuming user ID is available after authentication
     const spotId = req.params.id;
     const imageId = req.params.imageId;
 
@@ -534,7 +534,7 @@ router.delete(
       });
     }
 
-    if (spot.ownerId !== userId) {
+    if (spot.ownerId !== ownerId) {
       return res.status(403).json({
         message: "You don't have permission to delete this image",
       });
@@ -566,7 +566,7 @@ router.delete(
   "/reviews/:reviewId/images/:imageId",
   requireAuth,
   async (req, res) => {
-    const userId = req.user.id;
+    const ownerId = req.user.id;
     const reviewId = req.params.reviewId;
     const imageId = req.params.imageId;
 
@@ -578,7 +578,7 @@ router.delete(
       });
     }
 
-    if (review.userId !== userId) {
+    if (review.ownerId !== ownerId) {
       return res.status(403).json({
         message: "You don't have permission to delete this image",
       });

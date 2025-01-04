@@ -49,6 +49,9 @@ module.exports = {
       avgRating: {
         type: Sequelize.FLOAT
       },
+      numReviews: {
+        type: Sequelize.INTEGER
+      },
       previewImage: {
         type: Sequelize.STRING
       },
