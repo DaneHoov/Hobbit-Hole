@@ -36,7 +36,8 @@ module.exports = (sequelize, DataTypes) => {
         model: 'Spots',
         key: 'id'
       },
-      onDelete: "CASCADE"
+      onDelete: "CASCADE",
+      allowNull: false
     },
     createdAt: {
       type: DataTypes.DATE,
