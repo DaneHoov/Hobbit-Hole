@@ -31,7 +31,11 @@ module.exports = (sequelize, DataTypes) => {
     },
     spotId: {
       type: DataTypes.INTEGER,
-      foreignKey: true
+      references: {
+        model: 'Spots',
+        key: 'id'
+      },
+      onDelete: "CASCADE"
     },
     createdAt: {
       type: DataTypes.DATE,
