@@ -4,7 +4,7 @@
 
 ## Database Schema Design
 
-`hobbit_hole_schema`
+![`hobbit_hole_schema`](https://res.cloudinary.com/dc8gpuoti/image/upload/v1736220165/mjgdk0thjvkddieeendv.png)
 
 ## API Documentation
 
