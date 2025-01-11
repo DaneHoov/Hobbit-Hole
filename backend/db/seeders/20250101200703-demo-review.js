@@ -1,6 +1,9 @@
 'use strict';
 
-const { options } = require("../../routes/api/reviews");
+let options = {};
+if (process.env.NODE_ENV === "production") {
+  options.schema = process.env.SCHEMA; // define your schema in options object
+}
 const { Review } = require("../models");
 const bcrypt = require("bcryptjs");
 
