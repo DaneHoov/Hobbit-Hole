@@ -17,7 +17,7 @@ module.exports = {
       },
       userId: {
         type: Sequelize.INTEGER,
-        references: {model: 'hobbit_hole_schema.Users', key: 'id'}
+        references: {model: 'Users', key: 'id'}
       },
       spotId: {
         type: Sequelize.INTEGER,
@@ -39,7 +39,7 @@ module.exports = {
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
       },
-    });
+    }, options);
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('Reviews');
