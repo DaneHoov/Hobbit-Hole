@@ -55,6 +55,7 @@ module.exports = {
 
   async down(queryInterface, Sequelize) {
     options.tableName = "Users";
+    await queryInterface.removeConstraint("hobbit_hole_schema.Reviews", "Reviews_userId_fkey")
     return queryInterface.dropTable(options);
   },
 };
