@@ -69,7 +69,7 @@ module.exports = {
   },
   async down(queryInterface, Sequelize) {
     options.tableName = 'Spots'
-    await queryInterface.removeConstraint("hobbit_hole_schema.Spots", "SpotImages_spotId_fkey")
+    await queryInterface.removeConstraint("hobbit_hole_schema.SpotImages", "SpotImages_spotId_fkey")
     await queryInterface.dropTable(options);
   }
 };
