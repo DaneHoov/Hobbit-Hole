@@ -69,7 +69,7 @@ router.post("/", requireAuth, validateSpot, async (req, res) => {
     price: spot.price,
   };
 
-  return res.json({
+  return res.status(201).json({
     spot: safeSpot,
   });
 });
