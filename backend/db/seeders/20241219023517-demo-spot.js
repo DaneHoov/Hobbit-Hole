@@ -25,6 +25,7 @@ module.exports = {
           description: "Place where valid data can stay",
           price: 123,
           avgRating: 4.5,
+          numReviews: 99,
           previewImage: 'image url'
         },
         {
@@ -39,6 +40,7 @@ module.exports = {
           description: "Place where I LOVE to stay",
           price: 666,
           avgRating: 4,
+          numReviews: 420,
           previewImage: 'image url'
         },
         {
@@ -53,6 +55,7 @@ module.exports = {
           description: "Luigi says 'hi'",
           price: 1,
           avgRating: 5,
+          numReviews: 69,
           previewImage: 'image url'
         },
       ]
