@@ -270,13 +270,9 @@ router.put("/:id", requireAuth, async (req, res) => {
     price,
   });
 
-  const formattedSpot = {
-    ...spot.toJSON(),
-    updatedAt: spot.updatedAt.toISOString(),
-    createdAt: spot.createdAt.toISOString(),
-  };
+  
 
-  return res.status(200).json(formattedSpot);
+  return res.status(200).json(spot);
 });
 
 //Delete spot image
