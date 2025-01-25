@@ -14,6 +14,7 @@ module.exports = {
     await Spot.bulkCreate(
       [
         {
+          ownerId: 1,
           address: "123 Should Exist Street",
           city: "San Frangoodtogo",
           state: "California",
@@ -22,9 +23,12 @@ module.exports = {
           lng: -122.4730327,
           name: "The Good Spot",
           description: "Place where valid data can stay",
-          price: 123
+          price: 123,
+          avgRating: 4.5,
+          previewImage: 'image url'
         },
         {
+          ownerId: 2,
           address: "666 Satan's alley",
           city: "Newark",
           state: "New Jersey",
@@ -33,9 +37,12 @@ module.exports = {
           lng: -119.4736727,
           name: "The Devil's Buttcrack",
           description: "Place where I LOVE to stay",
-          price: 666
+          price: 666,
+          avgRating: 4,
+          previewImage: 'image url'
         },
         {
+          ownerId: 3,
           address: "6 Feet Under",
           city: "New York",
           state: "New York",
@@ -44,7 +51,9 @@ module.exports = {
           lng: -122.4730327,
           name: "Brian Thompson's Grave",
           description: "Luigi says 'hi'",
-          price: 1
+          price: 1,
+          avgRating: 5,
+          previewImage: 'image url'
         },
       ]
     )
