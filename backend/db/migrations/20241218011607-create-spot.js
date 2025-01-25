@@ -9,12 +9,12 @@ if (process.env.NODE_ENV === "production") {
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('Spots', {
-      // id: {
-      //   allowNull: false,
-      //   autoIncrement: true,
-      //   primaryKey: true,
-      //   type: Sequelize.INTEGER
-      // },
+      id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: Sequelize.INTEGER
+      },
       name: {
         type: Sequelize.STRING
       },
@@ -70,9 +70,9 @@ module.exports = {
   },
   async down(queryInterface, Sequelize) {
     options.tableName = 'Spots'
-    await queryInterface.removeConstraint("hobbit_hole_schema.SpotImages", "SpotImages_spotId_fkey")
-    await queryInterface.removeConstraint("hobbit_hole_schema.Reviews", "Reviews_spotId_fkey")
-    await queryInterface.removeConstraint("hobbit_hole_schema.Bookings", "Bookings_spotId_fkey")
+    // await queryInterface.removeConstraint("hobbit_hole_schema.SpotImages", "SpotImages_spotId_fkey")
+    // await queryInterface.removeConstraint("hobbit_hole_schema.Reviews", "Reviews_spotId_fkey")
+    // await queryInterface.removeConstraint("hobbit_hole_schema.Bookings", "Bookings_spotId_fkey")
     await queryInterface.dropTable(options);
   }
 };

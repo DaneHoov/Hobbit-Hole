@@ -55,9 +55,9 @@ module.exports = {
 
   async down(queryInterface, Sequelize) {
     options.tableName = "Users";
-    await queryInterface.removeConstraint("hobbit_hole_schema.Reviews", "Reviews_userId_fkey")
-    await queryInterface.removeConstraint("hobbit_hole_schema.Bookings", "Bookings_userId_fkey")
-    await queryInterface.removeConstraint("hobbit_hole_schema.Spots", "Spots_ownerId_fkey")
+    // await queryInterface.removeConstraint("hobbit_hole_schema.Reviews", "Reviews_userId_fkey")
+    // await queryInterface.removeConstraint("hobbit_hole_schema.Bookings", "Bookings_userId_fkey")
+    // await queryInterface.removeConstraint("hobbit_hole_schema.Spots", "Spots_ownerId_fkey")
     return queryInterface.dropTable(options);
   },
 };
