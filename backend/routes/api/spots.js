@@ -187,7 +187,7 @@ router.get("/:id", async (req, res) => {
     lng: spot.lng,
     name: spot.name,
     description: spot.description,
-    avgRating: avgStarRating ? parseFloat(avgStarRating.toFixed(1)) : null,
+    avgRating: avgStarRating ? parseFloat(avgStarRating.toFixed(1)) : 0,
     numReviews: parseInt(numReviews, 10),
     price: spot.price,
     createdAt: spot.createdAt,
