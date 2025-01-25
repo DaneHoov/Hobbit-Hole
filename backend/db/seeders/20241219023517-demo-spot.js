@@ -26,7 +26,19 @@ module.exports = {
           price: 123,
           avgRating: 4.5,
           numReviews: 99,
-          previewImage: 'image url'
+          previewImage: 'image url',
+          SpotImages: [
+            {
+              "id": 1,
+              "url": "image url",
+              "preview": true
+            },
+            {
+              "id": 2,
+              "url": "image url",
+              "preview": false
+            }
+          ]
         },
         {
           ownerId: 2,
@@ -41,7 +53,19 @@ module.exports = {
           price: 666,
           avgRating: 4,
           numReviews: 420,
-          previewImage: 'image url'
+          previewImage: 'image url',
+          SpotImages: [
+            {
+              "id": 3,
+              "url": "image url",
+              "preview": true
+            },
+            {
+              "id": 4,
+              "url": "image url",
+              "preview": false
+            }
+          ]
         },
         {
           ownerId: 3,
@@ -56,7 +80,19 @@ module.exports = {
           price: 1,
           avgRating: 5,
           numReviews: 69,
-          previewImage: 'image url'
+          previewImage: 'image url',
+          SpotImages: [
+            {
+              "id": 5,
+              "url": "image url",
+              "preview": true
+            },
+            {
+              "id": 6,
+              "url": "image url",
+              "preview": false
+            }
+          ]
         },
       ]
     )
