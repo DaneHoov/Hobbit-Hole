@@ -174,7 +174,11 @@ router.get("/:id", async (req, res) => {
     ],
   });
 
-  const { numReviews = 0, avgStarRating = null } = reviewData?.dataValues || {};
+  // const { numReviews = 0, avgStarRating = null } = reviewData?.dataValues || {};
+  const numReviews = reviewData?.numReviews || 0;
+  const avgStarRating = reviewData?.avgStarRating
+    ? parseFloat(reviewData.avgStarRating.toFixed(1))
+    : null;
 
   const safeSpot = {
     id: spot.id,
@@ -187,7 +191,7 @@ router.get("/:id", async (req, res) => {
     lng: spot.lng,
     name: spot.name,
     description: spot.description,
-    avgRating: avgStarRating ? parseFloat(avgStarRating.toFixed(1)) : 0,
+    avgRating: avgStarRating,
     numReviews: parseInt(numReviews, 10),
     price: spot.price,
     createdAt: spot.createdAt,
