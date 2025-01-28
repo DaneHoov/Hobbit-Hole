@@ -43,6 +43,7 @@ module.exports = {
     }, options);
   },
   async down(queryInterface, Sequelize) {
+    // await queryInterface.removeConstraint("hobbit_hole_schema.ReviewImages", "ReviewImages_reviewId_fkey")
     await queryInterface.dropTable('Reviews');
   }
 };
