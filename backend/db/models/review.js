@@ -24,11 +24,11 @@ module.exports = (sequelize, DataTypes) => {
   Review.init({
     userId: {
       type:DataTypes.INTEGER,
-      foreignKey: true
+      allowNull: false
     },
     spotId: {
       type:DataTypes.INTEGER,
-      foreignKey: true
+      allowNull: false
     },
     review: {
       type: DataTypes.STRING,

@@ -24,21 +24,21 @@ module.exports = {
           name: "The Good Spot",
           description: "Place where valid data can stay",
           price: 123,
-          avgRating: 4.5,
-          numReviews: 99,
-          previewImage: 'image url',
-          SpotImages: [
-            {
-              "id": 1,
-              "url": "image url",
-              "preview": true
-            },
-            {
-              "id": 2,
-              "url": "image url",
-              "preview": false
-            }
-          ]
+          // avgRating: 4.5,
+          // numReviews: 99,
+          // previewImage: 'image url',
+          // SpotImages: [
+          //   {
+          //     "id": 1,
+          //     "url": "image url",
+          //     "preview": true
+          //   },
+          //   {
+          //     "id": 2,
+          //     "url": "image url",
+          //     "preview": false
+          //   }
+          // ]
         },
         {
           ownerId: 2,
