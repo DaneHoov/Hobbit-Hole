@@ -280,7 +280,7 @@ router.put("/:id", requireAuth, async (req, res) => {
   res.status(200).json({
     spot: {
       ...spot.toJSON(),
-      updatedAt: spot.updatedAt.toISOString() // Format updatedAt as a string
+      updatedAt: new Date(spot.updatedAt).toISOString() // Format updatedAt as a string
     }
   });
 });
