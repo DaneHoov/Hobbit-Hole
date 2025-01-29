@@ -174,6 +174,14 @@ router.get("/:id", async (req, res) => {
     ],
   });
 
+    // Fetch images related to the spot
+    const spotImages = await SpotImages.findAll({
+      where: { spotId: spotId }
+    });
+
+    // Populate an array with the fetched images
+    const imagesArray = spotImages.map(image => image.toJSON());
+
   // const { numReviews = 0, avgStarRating = null } = reviewData?.dataValues || {};
   const numReviews = reviewData?.numReviews || 0;
   const avgStarRating = reviewData?.avgStarRating
@@ -196,11 +204,7 @@ router.get("/:id", async (req, res) => {
     price: spot.price,
     createdAt: spot.createdAt,
     updatedAt: spot.updatedAt,
-    SpotImages: spot.SpotImages.map((img) => ({
-      id: img.id,
-      url: img.url,
-      previewImage: img.previewImage,
-    })),
+    SpotImages: imagesArray
   };
 
   // Return the formatted spot data
@@ -254,6 +258,7 @@ router.put("/:id", requireAuth, async (req, res) => {
     where: { id: spotId, ownerId: req.user.id },
   });
 
+
   if (!spot) {
     return res.status(404).json({ message: "Spot couldn't be found" });
   }
@@ -270,7 +275,7 @@ router.put("/:id", requireAuth, async (req, res) => {
     price,
   });
 
-  
+
 
   return res.status(200).json(spot);
 });
