@@ -175,7 +175,7 @@ router.get("/:id", async (req, res) => {
   });
 
     // Fetch images related to the spot
-    const spotImages = await SpotImages.findAll({
+    const spotImages = await SpotImage.findAll({
       where: { spotId: spotId }
     });
 
