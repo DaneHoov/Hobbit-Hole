@@ -110,11 +110,6 @@ router.post("/:id/images", requireAuth, async (req, res) => {
   });
 });
 // ----------------------------------------------------------------------------------------------------------
-//Get all spots
-router.get("/", async (req, res) => {
-  const spots = await Spot.findAll();
-  res.json(spots);
-});
 // ----------------------------------------------------------------------------------------------------------
 //Get all spots by current user
 router.get("/current", requireAuth, async (req, res) => {
@@ -462,7 +457,7 @@ router.get("/:id/bookings", requireAuth, async (req, res) => {
 });
 // ----------------------------------------------------------------------------------------------------------
 //add query filters to get all spots
-router.get("/spots", async (req, res) => {
+router.get("/", async (req, res) => {
   const {
     page = 1,
     size = 20,
