@@ -7,7 +7,7 @@ const {
   restoreUser,
   requireAuth,
 } = require("../../utils/auth");
-const { Review } = require("../../db/models");
+const { Review, User, ReviewImage } = require("../../db/models");
 const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
 const router = express.Router();
@@ -209,4 +209,3 @@ router.delete(
 );
 
 module.exports = router;
-
