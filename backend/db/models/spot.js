@@ -91,14 +91,14 @@ module.exports = (sequelize, DataTypes) => {
     previewImage: {
       type: DataTypes.STRING,
     },
-    createdAt: {
-      type: DataTypes.DATE,
-      defaultValue: sequelize.literal("CURRENT_TIMESTAMP")
-    },
-    updatedAt: {
-      type: DataTypes.DATE,
-      defaultValue: sequelize.literal("CURRENT_TIMESTAMP")
-    },
+    // createdAt: {
+    //   type: DataTypes.DATE,
+    //   defaultValue: sequelize.literal("CURRENT_TIMESTAMP")
+    // },
+    // updatedAt: {
+    //   type: DataTypes.DATE,
+    //   defaultValue: sequelize.literal("CURRENT_TIMESTAMP")
+    // },
   }, {
     sequelize,
     modelName: 'Spot',
