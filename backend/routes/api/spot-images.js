@@ -5,54 +5,39 @@ const router = express.Router({ mergeParams: true });
 
 //  Delete a spot image
 
-// router.delete("/:id", requireAuth, async (req, res, next) => {
-//   const imageId = req.params.imageId;
-//   const userId = req.user.id;
+router.delete("/:id", requireAuth, async (req, res, next) => {
+  const imageId = req.params.imageId;
+  const userId = req.user.id;
 
-//   try {
-//     // Find the SpotImage with its associated Spot
-//     const image = await SpotImage.findByPk(imageId, {
-//       include: {
-//         model: Spot,
-//         attributes: ["ownerId"],
-//       },
-//     });
+  try {
+    // Find the SpotImage with its associated Spot
+    const image = await SpotImage.findByPk(imageId, {
+      include: {
+        model: Spot,
+        attributes: ["ownerId"],
+      },
+    });
 
-//     // Return 404 if the image doesn't exist
-//     if (!image) {
-//       return res.status(404).json({ message: "Spot Image couldn't be found" });
-//     }
+    // Return 404 if the image doesn't exist
+    if (!image) {
+      return res.status(404).json({ message: "Spot Image couldn't be found" });
+    }
 
-//     // Check if the current user is the owner of the spot
-//     if (image.Spot.ownerId !== userId) {
-//       return res
-//         .status(403)
-//         .json({ message: "Forbidden: Spot does not belong to current user" });
-//     }
+    // Check if the current user is the owner of the spot
+    if (image.Spot.ownerId !== userId) {
+      return res
+        .status(403)
+        .json({ message: "Forbidden: Spot does not belong to current user" });
+    }
 
-//     // Delete the image
-//     await image.destroy();
-//     return res.status(200).json({ message: "Successfully deleted" });
-//   } catch (error) {
-//     next(error);
-//   }
-// });
-
-//Delete spot
-router.delete("/:id", requireAuth, async (req, res) => {
-  const spotId = req.params.id;
-
-  const spot = await Spot.findOne({
-    where: { id: spotId, ownerId: req.user.id },
-  });
-
-  if (!spot) {
-    return res.status(404).json({ message: "Spot couldn't be found" });
+    // Delete the image
+    await image.destroy();
+    return res.status(200).json({ message: "Successfully deleted" });
+  } catch (error) {
+    next(error);
   }
-
-  await spot.destroy();
-
-  return res.status(200).json({ message: "Successfully deleted" });
 });
+
+
 
 module.exports = router;
