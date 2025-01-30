@@ -5,7 +5,7 @@ const { Review, ReviewImage } = require("../../db/models");
 
 //Delete review image
 router.delete(
-  "/:reviewId/images/:imageId",
+  "/:imageId",
   requireAuth,
   async (req, res) => {
     const ownerId = req.user.id;
@@ -47,34 +47,6 @@ router.delete(
   }
 );
 
-//Add image to review based on review id
-router.post("/:id/images", requireAuth, async (req, res) => {
-  const reviewId = req.params.id;
-  const { url } = req.body;
-  const userId = req.user.id;
 
-  const review = await Review.findByPk(reviewId);
-  if (!review) {
-    return res.status(404).json({ message: "Review couldn't be found" });
-  }
-  if (review.userId !== userId) {
-    return res.status(403).json({ message: "Unauthorized" });
-  }
-
-  //review already has 10 images
-  const imageCount = await ReviewImage.count({ where: { reviewId } });
-  if (imageCount >= 10) {
-    return res.status(403).json({
-      message: "Maximum number of images for this resource was reached",
-    });
-  }
-
-  const newImage = await ReviewImage.create({
-    reviewId,
-    url,
-  });
-
-  return res.status(201).json(newImage);
-});
 
 module.exports = router;

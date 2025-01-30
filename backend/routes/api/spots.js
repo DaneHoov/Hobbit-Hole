@@ -211,22 +211,7 @@ router.get("/:id", async (req, res) => {
   return res.status(200).json(safeSpot);
 });
 // ----------------------------------------------------------------------------------------------------------
-//Delete spot
-router.delete("/:id", requireAuth, async (req, res) => {
-  const spotId = req.params.id;
 
-  const spot = await Spot.findOne({
-    where: { id: spotId, ownerId: req.user.id },
-  });
-
-  if (!spot) {
-    return res.status(404).json({ message: "Spot couldn't be found" });
-  }
-
-  await spot.destroy();
-
-  return res.status(200).json({ message: "Successfully deleted" });
-});
 // ----------------------------------------------------------------------------------------------------------
 //Edit a spot
 router.put("/:id", requireAuth, async (req, res) => {
