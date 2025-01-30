@@ -265,7 +265,7 @@ await spot.save()
   res.status(200).json({
     spot: {
       ...spot.toJSON(),
-      updatedAt: new Date(spot.updatedAt).toISOString() // Format updatedAt as a string
+      updatedAt: spot.updatedAt
     }
   });
 });
