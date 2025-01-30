@@ -6,7 +6,7 @@ const router = express.Router({ mergeParams: true });
 //  Delete a spot image
 
 router.delete("/:id", requireAuth, async (req, res, next) => {
-  const imageId = req.params.imageId;
+  const imageId = req.params.id;
   const userId = req.user.id;
 
   try {
