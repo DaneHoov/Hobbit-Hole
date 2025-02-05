@@ -5,7 +5,7 @@ import "./index.css";
 import { Provider } from "react-redux";
 import configureStore from "./store";
 import { restoreCSRF, csrfFetch } from "./store/csrf";
-import { setUser, removeUser, login } from './store/session';
+import * as sessionActions from './store/session';
 
 const store = configureStore();
 
