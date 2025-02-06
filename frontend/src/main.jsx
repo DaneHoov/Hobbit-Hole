@@ -5,7 +5,7 @@ import "./index.css";
 import { Provider } from "react-redux";
 import configureStore from "./store";
 import { restoreCSRF, csrfFetch } from "./store/csrf";
-import { setUser, removeUser, signup, login} from './store/session';
+import { setUser, removeUser, signup, login, logout } from './store/session';
 
 const store = configureStore();
 
@@ -14,7 +14,7 @@ if (import.meta.env.MODE !== "production") {
 
   window.csrfFetch = csrfFetch;
   window.store = store;
-  window.sessionActions = { setUser, removeUser, login, signup }
+  window.sessionActions = { setUser, removeUser, login, signup, logout }
 }
 
 if (process.env.NODE_ENV !== "production") {
