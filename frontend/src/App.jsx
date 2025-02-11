@@ -1,8 +1,14 @@
-import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
-import Navigation from './components/Navigation';
-import * as sessionActions from './store/session';
+import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import * as sessionActions from "./store/session";
+import Navigation from "./components/Navigation";
+import Home from "./components/pages/Home";
+import SpotDetails from "./components/pages/SpotDetails";
+import ManageSpots from "./components/pages/ManageSpots";
+import DeleteSpotModal from "./components/DeleteSpotModal/DeleteSpotModal";
+import SpotForm from "./components/SpotForm";
+import * as spotActions from "./store/spots";
 
 function Layout() {
   const dispatch = useDispatch();
@@ -10,13 +16,16 @@ function Layout() {
 
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => {
-      setIsLoaded(true)
+      dispatch(spotActions.fetchSpots());
+      setIsLoaded(true);
     });
   }, [dispatch]);
 
   return (
     <>
-      <Navigation isLoaded={isLoaded} />
+      <header>
+        <Navigation isLoaded={isLoaded} />
+      </header>
       {isLoaded && <Outlet />}
     </>
   );
@@ -27,8 +36,38 @@ const router = createBrowserRouter([
     element: <Layout />,
     children: [
       {
-        path: '/',
-        element: <h1>Welcome!</h1>
+        path: "/",
+        element: <Home />
+      },
+      {
+        path: "/spots",
+        children: [
+          {
+            path: ":spotId",
+            children: [
+              {
+                index: true,
+                element: <SpotDetails />
+              },
+              {
+                path: "edit",
+                element: <SpotForm />
+              }
+            ]
+          },
+          {
+            path: "new",
+            element: <SpotForm />
+          },
+          {
+            path: "current",
+            element: <ManageSpots />
+          },
+          {
+            path: "delete",
+            element: <DeleteSpotModal />
+          }
+        ]
       }
     ]
   }
