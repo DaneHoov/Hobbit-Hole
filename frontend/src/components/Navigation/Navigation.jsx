@@ -1,23 +1,41 @@
-import { NavLink } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import ProfileButton from './ProfileButton';
-import './Navigation.css';
+import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
+import ProfileButton from "./ProfileButton";
+import "./Navigation.css";
+import { IoBed } from "react-icons/io5";
 
-function Navigation({ isLoaded }) {
-  const sessionUser = useSelector(state => state.session.user);
+const Navigation = ({ isLoaded }) => {
+  const sessionUser = useSelector((state) => state.session.user);
 
   return (
-    <ul>
+    <nav className="nav-bar">
       <li>
-        <NavLink to="/">Home</NavLink>
+        <NavLink to="/" className="logo" data-testid="logo">
+          <IoBed />
+          <span>
+            Hobbit
+            <span className="primary">
+              Hole
+            </span>
+          </span>
+        </NavLink>
       </li>
       {isLoaded && (
-        <li>
-          <ProfileButton user={sessionUser} />
-        </li>
+        <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+          {sessionUser && (
+            <li>
+              <NavLink to="/spots/new" data-testid="create-new-spot-button">
+                Create a New Spot
+              </NavLink>
+            </li>
+          )}
+          <li>
+            <ProfileButton user={sessionUser} />
+          </li>
+        </div>
       )}
-    </ul>
+    </nav>
   );
-}
+};
 
 export default Navigation;
