@@ -1,7 +1,12 @@
 {
   "dependencies": {
     "express-validator": "^7.2.0",
-    "per-env": "^1.0.2"
+    "js-cookie": "^3.0.5",
+    "per-env": "^1.0.2",
+    "react-redux": "^9.2.0",
+    "react-router-dom": "^6.29.0",
+    "redux": "^5.0.1",
+    "redux-thunk": "^3.1.0"
   },
   "scripts": {
     "install": "npm --prefix backend install backend",
@@ -10,5 +15,8 @@
     "sequelize-cli": "npm run --prefix backend sequelize-cli",
     "start": "npm start --prefix backend",
     "build": "npm run --prefix backend build"
+  },
+  "devDependencies": {
+    "redux-logger": "^3.0.6"
   }
 }
