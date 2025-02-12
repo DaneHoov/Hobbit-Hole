@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import ProfileButton from "./ProfileButton";
 import "./Navigation.css";
-import { IoBed } from "react-icons/io5";
+import { GiHobbitDoor } from "react-icons/gi";
 
 const Navigation = ({ isLoaded }) => {
   const sessionUser = useSelector((state) => state.session.user);
@@ -11,7 +11,7 @@ const Navigation = ({ isLoaded }) => {
     <nav className="nav-bar">
       <li>
         <NavLink to="/" className="logo" data-testid="logo">
-          <IoBed />
+          <GiHobbitDoor />
           <span>
             Hobbit
             <span className="primary">

@@ -15,7 +15,7 @@ const Home = () => {
   return (
     <main className="home-container">
       <h1>
-        You&appos;ll want to go there <span className="primary">and back again.</span>
+        You&apos;ll want to go there <span className="primary">and back again.</span>
       </h1>
       <div className="spots-grid" data-testid="spots-list">
         {spots.map((spot) => (

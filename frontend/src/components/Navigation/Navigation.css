@@ -116,25 +116,6 @@
     margin: 0.5rem 0;
   }
 
-  /* .profile-dropdown li button {
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
-    cursor: pointer;
-    margin-top: 1.5rem;
-    transition: all 0.2s ease-in-out;
-
-    background-color: #ff6f61;
-    color: white;
-    padding: 0.625rem 1.25rem;
-    border: none;
-  } */
-
-  /* .profile-dropdown li button:hover {
-    background-color: #fd4a39;
-    color: white;
-  } */
-
   .profile-dropdown .auth-buttons {
     display: flex;
     justify-content: center;
