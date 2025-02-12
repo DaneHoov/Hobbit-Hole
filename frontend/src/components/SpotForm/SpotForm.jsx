@@ -261,7 +261,7 @@ const SpotForm = () => {
             </h2>
             <p data-testid="section-2-caption">
               Mention the best features of your space, any special amentities
-              like fast wifi or parking, and what you love about the
+              like your house being underground or proximity to the birthplace of The One Ring, and what you love about the
               neighborhood.
             </p>
           </div>
