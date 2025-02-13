@@ -40,8 +40,8 @@ input:focus + .label,
   gap: 10px;
   font-size: 1.1rem;
   margin-top: 20px;
-  background-color: #ff5a5f;
-  color: white;
+  background-color: #f0b478;
+  color: #a0b48c;
   border: none;
   border-radius: 10px;
   padding: 10px 20px;
@@ -65,6 +65,6 @@ input:focus + .label,
 }
 
 .error {
-  color: #ff5a5f; /* Adjust styling for error messages */
+  color: #f0b478; /* Adjust styling for error messages */
   font-size: 12px;
 }

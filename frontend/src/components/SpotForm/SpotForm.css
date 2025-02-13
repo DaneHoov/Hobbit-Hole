@@ -55,7 +55,7 @@ h2 {
 
 /* Validation and Error Styles */
 .error {
-  color: #FF5A5F;
+  color: #f0b478;
   font-size: 13px;
   margin-top: 5px;
 }
@@ -64,12 +64,12 @@ input[type="text"].error-input,
 input[type="number"].error-input,
 input[type="url"].error-input,
 textarea.error-input {
-  border-color: #FF5A5F;
+  border-color: #f0b478;
 }
 
 .submit-btn {
-  background-color: #FF5A5F;
-  color: #ffffff;
+  background-color: #f0b478;
+  color: #a0b48c;
   padding: 10px;
   font-size: 1.1rem;
   border: none;
@@ -79,5 +79,5 @@ textarea.error-input {
 }
 
 .submit-btn:hover {
-  background-color: #FF5A5F;
+  background-color: #f0b478;
 }

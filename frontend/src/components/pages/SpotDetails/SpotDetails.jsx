@@ -69,7 +69,7 @@ const DeleteReviewModal = ({ spotId, review }) => {
             maxWidth: "100%",
             backgroundColor: "gray",
             color: "white",
-            border: "none"
+            border: "none",
           }}
         >
           No (Keep Review)
@@ -88,7 +88,7 @@ const SpotDetails = () => {
   const spot = useSelector((state) => state.spots.spotDetails);
   const reviewsBySpot = useSelector((state) => state.reviews.reviewsBySpot);
   const reviews = reviewsBySpot[spotId] || [];
-  const mainImage = spot?.SpotImages.filter((img) => img.preview)[0];
+  const mainImage = spot?.SpotImages.filter((img) => img.previewImage)[0];
   const isSpotOwner = spot?.Owner?.id === currentUser?.id;
 
   const userHasReviewed = reviews.some(
@@ -240,7 +240,7 @@ const SpotDetails = () => {
                   <p data-testid="review-date">
                     {new Date(review.createdAt).toLocaleDateString("en-US", {
                       month: "2-digit",
-                      year: "numeric"
+                      year: "numeric",
                     })}
                   </p>
                 </div>

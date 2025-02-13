@@ -14,7 +14,7 @@
   border: none;
   outline: none;
   text-decoration: underline;
-  color: #ff6f61;
+  color: #f0f0b4;
   cursor: pointer;
 }
 
@@ -37,7 +37,7 @@ input {
 }
 
 input:focus {
-  outline: 3px solid #ff6f61;
+  outline: 3px solid #f0f0b4;
   box-shadow: 0 8px 4px rgba(0, 0, 0, 0.2);
 }
 
@@ -67,8 +67,8 @@ input:focus + .label,
   gap: 10px;
   font-size: 1.1rem;
   margin-top: 20px;
-  background-color: #ff5a5f;
-  color: white;
+  background-color: #f0b478;
+  color: #a0b48c;
   border: none;
   border-radius: 10px;
   padding: 10px 20px;
@@ -78,6 +78,6 @@ input:focus + .label,
 
 .login-form__error {
   font-size: 14px;
-  color: #ff5a5f;
+  color: #f0b478;
   text-align: center;
 }

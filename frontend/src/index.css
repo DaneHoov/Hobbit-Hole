@@ -7,6 +7,10 @@
   box-sizing: border-box;
 }
 
+body {
+  background-color: #a0b48c;
+}
+
 html {
   font-size: 0.875rem;
 }
@@ -104,5 +108,7 @@ container h1 {
 }
 
 .primary {
-  color: #ff5a5f;
+  color: #7b3f00;
+  font-style: bold;
+  font-weight: bolder;
 }
