@@ -26,7 +26,7 @@ module.exports = {
           price: 250,
           avgRating: 4.5,
           numReviews: 99,
-          previewImage: 'https://static.wikia.nocookie.net/middle-earth-film-saga/images/b/b5/Helm%27s_Deep.jpg/revision/latest?cb=20210716160627',
+          previewImage: 'https://upload.wikimedia.org/wikipedia/en/thumb/f/fe/Helmsdeep-siege.jpg/280px-Helmsdeep-siege.jpg',
           SpotImages: ['https://static.wikia.nocookie.net/middle-earth-film-saga/images/b/b5/Helm%27s_Deep.jpg/revision/latest?cb=20210716160627', 'https://upload.wikimedia.org/wikipedia/en/thumb/f/fe/Helmsdeep-siege.jpg/280px-Helmsdeep-siege.jpg']
         },
         {
@@ -58,7 +58,7 @@ module.exports = {
           price: 999.99,
           avgRating: 1.5,
           numReviews: 650,
-          previewImage: 'https://static.wikia.nocookie.net/pjmidearthfilms/images/5/53/Barad_Dur.webp/revision/latest/scale-to-width-down/3840?cb=20230503200050',
+          previewImage: 'https://i.redd.it/68nnm70z5yyb1.jpg',
           SpotImages: ['https://i.redd.it/68nnm70z5yyb1.jpg', 'https://static.wikia.nocookie.net/pjmidearthfilms/images/5/53/Barad_Dur.webp/revision/latest/scale-to-width-down/3840?cb=20230503200050']
         },
       ]
