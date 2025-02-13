@@ -14,12 +14,16 @@ module.exports = {
     await ReviewImage.bulkCreate(
       [
         {
-          url: 'review-img-1.jpg',
+          url: 'https://angrystaffofficer.com/wp-content/uploads/2019/10/coetttbs_023.jpg?w=600',
           reviewId: 1
         },
         {
-          url: 'review-img-2.jpg',
+          url: 'https://i0.wp.com/www.hellokelinda.com/wp-content/uploads/2020/04/bag-end-sitting-room.jpg?resize=800%2C350&ssl=1',
           reviewId: 2
+        },
+        {
+          url: 'https://tolkiengateway.net/w/images/thumb/6/6a/Alan_Lee_-_The_building_of_Barad-dur.jpg/300px-Alan_Lee_-_The_building_of_Barad-dur.jpg',
+          reviewId: 3
         }
       ]
     )
