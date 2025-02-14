@@ -88,9 +88,9 @@ const SpotDetails = () => {
   const spot = useSelector((state) => state.spots.spotDetails);
   const reviewsBySpot = useSelector((state) => state.reviews.reviewsBySpot);
   const reviews = reviewsBySpot[spotId] || [];
-  const mainImage = spot?.SpotImages.filter((img) => img.previewImage)[0];
+  const mainImage = spot?.SpotImages.filter((img) => img.preview)[0];
   const isSpotOwner = spot?.Owner?.id === currentUser?.id;
-
+console.log(spot)
   const userHasReviewed = reviews.some(
     (review) => review.userId === currentUser?.id
   );
@@ -112,9 +112,9 @@ const SpotDetails = () => {
   return (
     <main className="container">
       <div className="container__header">
-        <h1 data-testid="spot-name">{spot.name}</h1>
+        <h1 data-testid="spot-name">{spot?.name}</h1>
         <h3 data-testid="spot-location">
-          <span data-testid="spot-city">{spot.city}</span>,{" "}
+          <span data-testid="spot-city">{spot?.city}</span>,{" "}
           <span>{spot.state}</span>, <span>{spot.country}</span>
         </h3>
       </div>
@@ -130,7 +130,7 @@ const SpotDetails = () => {
         <div className="images-grid__secondary">
           {spot.SpotImages.length > 1 ? (
             <>
-              {spot.SpotImages.slice(1, 5).map((img) => (
+              {spot.SpotImages.map((img) => (
                 <div className="images-grid__img-container" key={img.id}>
                   <img
                     src={img.url}

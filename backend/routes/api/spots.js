@@ -147,7 +147,7 @@ router.get("/:id", async (req, res) => {
     include: [
       {
         model: SpotImage,
-        attributes: ["id", "url", "previewImage"],
+        attributes: ["id", "url", "preview"],
       },
       {
         model: User,
@@ -167,6 +167,12 @@ router.get("/:id", async (req, res) => {
       [fn("COUNT", col("stars")), "numReviews"],
       [fn("AVG", col("stars")), "avgStarRating"],
     ],
+  });
+
+  //Fetch spot owner data
+  const Owner = await User.findOne({
+    where: { id: spot.ownerId },
+    attributes: ["id", "firstName", "lastName"]
   });
 
     // Fetch images related to the spot
@@ -194,6 +200,7 @@ router.get("/:id", async (req, res) => {
     lng: spot.lng,
     name: spot.name,
     description: spot.description,
+    Owner: Owner,
     avgRating: avgStarRating,
     numReviews: parseInt(numReviews, 10),
     price: spot.price,
