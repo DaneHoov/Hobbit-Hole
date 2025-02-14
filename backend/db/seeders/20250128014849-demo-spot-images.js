@@ -15,7 +15,7 @@ module.exports = {
       [
         {
           url: 'https://static.wikia.nocookie.net/middle-earth-film-saga/images/b/b5/Helm%27s_Deep.jpg/revision/latest?cb=20210716160627',
-          preview: true,
+          preview: false,
           spotId: 1
         },
         {
@@ -30,7 +30,7 @@ module.exports = {
         },
         {
           url: 'https://www.google.com/search?q=frodos+house+interior+.jpg&sca_esv=fd2f423473d1beed&rlz=1C1VDKB_enUS1047US1047&udm=2&biw=1920&bih=957&sxsrf=AHTn8zppxGlteeGrCoZDOrMfXyLCGuH3iw%3A1739408971455&ei=S0atZ4vFG83MkPIP66f06Qs&ved=0ahUKEwjLlvOuu7-LAxVNJkQIHesTPb0Q4dUDCBE&uact=5&oq=frodos+house+interior+.jpg&gs_lp=EgNpbWciGmZyb2RvcyBob3VzZSBpbnRlcmlvciAuanBnSNIhUABY9R9wAHgAkAEAmAE7oAG6CaoBAjI2uAEDyAEA-AEBmAIPoAL8BcICBBAjGCfCAgsQABiABBixAxiDAcICCBAAGIAEGLEDwgIKEAAYgAQYQxiKBcICDRAAGIAEGLEDGEMYigXCAgUQABiABMICBxAAGIAEGArCAgYQABgKGB7CAggQABgFGAoYHpgDAJIHAjE1oAfYaQ&sclient=img#vhid=lyvFBuqaM9eKYM&vssid=mosaic',
-          preview: true,
+          preview: false,
           spotId: 2
         },
         {
@@ -40,7 +40,7 @@ module.exports = {
         },
         {
           url: 'https://static.wikia.nocookie.net/pjmidearthfilms/images/5/53/Barad_Dur.webp/revision/latest/scale-to-width-down/3840?cb=20230503200050',
-          preview: true,
+          preview: false,
           spotId: 3
         }
       ]
