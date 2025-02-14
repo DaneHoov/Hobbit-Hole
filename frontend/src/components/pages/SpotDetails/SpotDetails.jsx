@@ -112,29 +112,30 @@ const SpotDetails = () => {
   return (
     <main className="container">
       <div className="container__header">
-        <h1 data-testid="spot-name">{spot.name}</h1>
+        {console.log(spot.SpotImages, "OOGEYBOOGEYMAN")}
+        <h1 data-testid="spot-name">{spot?.name}</h1>
         <h3 data-testid="spot-location">
-          <span data-testid="spot-city">{spot.city}</span>,{" "}
-          <span>{spot.state}</span>, <span>{spot.country}</span>
+          <span data-testid="spot-city">{spot?.city}</span>,{" "}
+          <span>{spot?.state}</span>, <span>{spot?.country}</span>
         </h3>
       </div>
       <div className="images-grid__main">
         <div className="images-grid__img-container">
           <img
             src={mainImage.url}
-            alt={`${spot.name} preview image`}
+            alt={`${spot?.name} preview image`}
             data-testid="spot-large-image"
           />
         </div>
 
         <div className="images-grid__secondary">
-          {spot.SpotImages.length > 1 ? (
+          {spot?.SpotImages.length > 1 ? (
             <>
-              {spot.SpotImages.slice(1, 5).map((img) => (
+              {spot?.SpotImages.map((img) => (
                 <div className="images-grid__img-container" key={img.id}>
                   <img
                     src={img.url}
-                    alt={`${spot.name} preview image`}
+                    alt={`${spot?.name} preview image`}
                     data-testid="spot-small-image"
                   />
                 </div>
