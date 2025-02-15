@@ -102,6 +102,7 @@ export const addSpot = (spotDetails, imageUrls) => async (dispatch) => {
     });
 
     const spotData = await response.json();
+    console.log("SPOT DATA", spotData);
     dispatch(addSpotAction(spotData));
 
     for (const url of imageUrls) {
@@ -111,8 +112,11 @@ export const addSpot = (spotDetails, imageUrls) => async (dispatch) => {
         preview: url === imageUrls[0]
       };
 
-      await csrfFetch(`/api/spots/${spotData.id}/images`, {
+      await csrfFetch(`/api/spots/${spotData.spot.id}/images`, {
         method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
         body: JSON.stringify(imgDetails)
       });
     }

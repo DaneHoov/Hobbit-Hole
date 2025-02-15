@@ -121,12 +121,13 @@ const SpotForm = () => {
     const imageUrls = [formData.previewImage, ...formData.images];
     try {
       if (isEdit) {
-        dispatch(spotActions.updateSpot(spotId, spotData, imageUrls));
+        await dispatch(spotActions.updateSpot(spotId, spotData, imageUrls));
         dispatch(spotActions.fetchSpotDetails(spotId));
         navigate(`/spots/${spotId}`);
       } else {
         const res = await dispatch(spotActions.addSpot(spotData, imageUrls));
-        navigate(`/spots/${res.spot.id}`);
+        console.log(res)
+        navigate(`/spots/${res.spot.spot.id}`);
       }
     } catch (error) {
       const errorRes = await error.json();
@@ -153,7 +154,7 @@ const SpotForm = () => {
               Where&apos;s your place located?
             </h2>
             <p data-testid="section-1-caption">
-              Don&appos;t worry, we won&appos;t share your exact address with guests until they confirm a booking.
+              Don&apos;t worry, we won&apos;t share your exact address with guests until they confirm a booking.
             </p>
           </div>
 
@@ -357,7 +358,7 @@ const SpotForm = () => {
             )}
           </div>
 
-          {/* TODO: Add image upload functionality */}
+
           <div className="form-group">
             <label htmlFor="image-1">Image URL</label>
             <input
@@ -392,13 +393,13 @@ const SpotForm = () => {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="image-3">Image URL</label>
+            <label htmlFor="image-4">Image URL</label>
             <input
               type="url"
               id="image-4"
               name="image-4"
               placeholder="Image URL"
-              value={formData.images[2] || ""}
+              value={formData.images[3] || ""}
               onChange={(e) => handleImageChange(3, e.target.value)}
             />
           </div>

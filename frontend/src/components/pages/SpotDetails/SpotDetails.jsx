@@ -98,7 +98,9 @@ console.log(spot)
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
+      console.log("SPOT ID", spotId);
       await dispatch(spotActions.fetchSpotDetails(spotId));
+      console.log("SPOT ID", spotId);
       await dispatch(reviewActions.fetchReviews(spotId));
       setLoading(false);
     };
