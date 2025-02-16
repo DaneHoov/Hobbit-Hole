@@ -10,6 +10,9 @@ function LoginFormModal() {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
+  const minUserChars = 4;
+  const minPassChars = 6;
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -23,6 +26,19 @@ function LoginFormModal() {
         }
       });
   };
+
+  const handleDemoLogin = () => {
+    return dispatch(sessionActions.login({ credential: 'demoUser', password: 'password' }))
+      .then(closeModal)
+      .catch(async (res) => {
+        const data = await res.json();
+        if (data && data.errors) {
+          setErrors(data.errors);
+        }
+      });
+  };
+
+  const isButtonDisabled = credential.length < minUserChars || password.length < minPassChars;
 
   return (
     <>
@@ -49,8 +65,9 @@ function LoginFormModal() {
         {errors.credential && (
           <p>{errors.credential}</p>
         )}
-        <button type="submit">Log In</button>
+        <button type="submit" disabled={isButtonDisabled}>Log In</button>
       </form>
+      <button onClick={handleDemoLogin}>Log In as Demo User</button>
     </>
   );
 }

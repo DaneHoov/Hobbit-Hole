@@ -154,7 +154,7 @@ const SpotForm = () => {
               Where&apos;s your place located?
             </h2>
             <p data-testid="section-1-caption">
-              Don&apos;t worry, we won&apos;t share your exact address with guests until they confirm a booking.
+            Guests will only get your exact address once they booked a reservation.
             </p>
           </div>
 
@@ -261,9 +261,7 @@ const SpotForm = () => {
               Describe your place to guests
             </h2>
             <p data-testid="section-2-caption">
-              Mention the best features of your space, any special amentities
-              like your house being underground or proximity to the birthplace of The One Ring, and what you love about the
-              neighborhood.
+            Mention the best features of your space, any special amentities like fast wifi or parking, and what you love about the neighborhood.
             </p>
           </div>
           <textarea

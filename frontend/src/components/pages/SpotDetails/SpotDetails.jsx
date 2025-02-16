@@ -203,7 +203,7 @@ console.log(spot)
                   className="site-btn secondary"
                   data-testid="review-button"
                 />
-                <p>Be the first</p>
+                <p>Be the first to post a review!</p>
               </div>
             )}
           </>
