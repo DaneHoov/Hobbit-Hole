@@ -20,7 +20,7 @@ const ManageSpots = () => {
   if (!user) {
     return navigate("/", {
       state: { error: "You must be logged in to manage your spots" },
-      replace: true
+      replace: true,
     });
   }
 

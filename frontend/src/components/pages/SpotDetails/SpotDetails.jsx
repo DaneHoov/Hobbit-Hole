@@ -90,7 +90,7 @@ const SpotDetails = () => {
   const reviews = reviewsBySpot[spotId] || [];
   const mainImage = spot?.SpotImages.filter((img) => img.preview)[0];
   const isSpotOwner = spot?.Owner?.id === currentUser?.id;
-console.log(spot)
+  console.log(spot);
   const userHasReviewed = reviews.some(
     (review) => review.userId === currentUser?.id
   );
