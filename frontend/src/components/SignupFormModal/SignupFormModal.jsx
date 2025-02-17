@@ -52,6 +52,7 @@ function SignupFormModal() {
     !lastName ||
     !password ||
     !confirmPassword ||
+    password !== confirmPassword ||
     username.length < minUserChars ||
     password.length < minPassChars;
 
@@ -121,15 +122,15 @@ function SignupFormModal() {
           {errors.password && <p className="error">{errors.password}</p>}
         </div>
         <div className="signup-form__input-container">
-          <label className={confirmPassword ? "active" : ""}>
-            Confirm Password
-          </label>
           <input
             type="password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
           />
+          <label className={confirmPassword ? "active" : ""}>
+            Confirm Password
+          </label>
           {errors.confirmPassword && (
             <p className="error">{errors.confirmPassword}</p>
           )}
