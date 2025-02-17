@@ -64,7 +64,7 @@ function SignupFormModal() {
       <h1 className="signup-form__title">Sign Up</h1>
       <form onSubmit={handleSubmit} className="signup-form">
         <div className="signup-form__input-container">
-          <label>Email</label>
+          <label className={email ? "active" : ""}>Email</label>
           <input
             type="text"
             value={email}
@@ -74,7 +74,7 @@ function SignupFormModal() {
           {errors.email && <p className="error">{errors.email}</p>}
         </div>
         <div className="signup-form__input-container">
-          <label>Username</label>
+          <label className={username ? "active" : ""}>Username</label>
           <input
             type="text"
             value={username}
@@ -84,7 +84,7 @@ function SignupFormModal() {
           {errors.username && <p className="error">{errors.username}</p>}
         </div>
         <div className="signup-form__input-container">
-          <label>First Name</label>
+          <label className={firstName ? "active" : ""}>First Name</label>
           <input
             type="text"
             value={firstName}
@@ -94,7 +94,7 @@ function SignupFormModal() {
           {errors.firstName && <p className="error">{errors.firstName}</p>}
         </div>
         <div className="signup-form__input-container">
-          <label>Last Name</label>
+          <label className={firstName ? "active" : ""}>Last Name</label>
           <input
             type="text"
             value={lastName}
@@ -104,7 +104,7 @@ function SignupFormModal() {
           {errors.lastName && <p className="error">{errors.lastName}</p>}
         </div>
         <div className="signup-form__input-container">
-          <label>Password</label>
+          <label className={password ? "active" : ""}>Password</label>
           <input
             type={showPassword ? "text" : "password"}
             value={password}
@@ -121,7 +121,9 @@ function SignupFormModal() {
           {errors.password && <p className="error">{errors.password}</p>}
         </div>
         <div className="signup-form__input-container">
-          <label>Confirm Password</label>
+          <label className={confirmPassword ? "active" : ""}>
+            Confirm Password
+          </label>
           <input
             type="password"
             value={confirmPassword}

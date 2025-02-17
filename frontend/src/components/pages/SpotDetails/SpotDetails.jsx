@@ -92,8 +92,8 @@ const SpotDetails = () => {
   const secondaryImages = spot?.SpotImages.filter((img) => !img.preview);
   const isSpotOwner = spot?.Owner?.id === currentUser?.id;
 
-    console.log("SPOT", spot);
-;
+  console.log("SPOT", spot);
+
   const userHasReviewed = reviews.some(
     (review) => review.userId === currentUser?.id
   );

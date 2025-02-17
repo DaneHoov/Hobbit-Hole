@@ -68,7 +68,7 @@ input:focus + .label,
 .show-password-btn {
   position: absolute;
   right: 10px;
-  top: 50%;
+  top: 25%;
   background: none;
   border: none;
   cursor: pointer;
