@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 import { FaUserCircle } from 'react-icons/fa';
 import * as sessionActions from '../../store/session';
 import OpenModalMenuItem from './OpenModalMenuItem';
@@ -27,7 +28,7 @@ function ProfileButton({ user }) {
 
     document.addEventListener('click', closeMenu);
 
-    return () => document.removeEventListener("click", closeMenu);
+    return () => document.removeEventListener('click', closeMenu);
   }, [showMenu]);
 
   const closeMenu = () => setShowMenu(false);
@@ -38,11 +39,12 @@ function ProfileButton({ user }) {
     closeMenu();
   };
 
-  const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
+  const ulClassName = 'profile-dropdown' + (showMenu ? '' : ' hidden');
+  console.log(user);
 
   return (
     <>
-      <button onClick={toggleMenu}>
+      <button className="profile-button" onClick={toggleMenu}>
         <FaUserCircle />
       </button>
       <ul className={ulClassName} ref={ulRef}>
@@ -50,6 +52,11 @@ function ProfileButton({ user }) {
           <>
             <li>Hello, {user.firstName}</li>
             <li>{user.email}</li>
+            <li>
+              <NavLink to="/spots/current">
+                <button className="site-btn">Manage Spots</button>
+              </NavLink>
+            </li>
             <li>
               <button onClick={logout}>Log Out</button>
             </li>
