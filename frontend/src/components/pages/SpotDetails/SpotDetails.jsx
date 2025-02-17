@@ -89,8 +89,11 @@ const SpotDetails = () => {
   const reviewsBySpot = useSelector((state) => state.reviews.reviewsBySpot);
   const reviews = reviewsBySpot[spotId] || [];
   const mainImage = spot?.SpotImages.filter((img) => img.preview)[0];
+  const secondaryImages = spot?.SpotImages.filter((img) => !img.preview);
   const isSpotOwner = spot?.Owner?.id === currentUser?.id;
-console.log(spot)
+
+  console.log("SPOT", spot);
+
   const userHasReviewed = reviews.some(
     (review) => review.userId === currentUser?.id
   );
@@ -117,26 +120,26 @@ console.log(spot)
         <h1 data-testid="spot-name">{spot?.name}</h1>
         <h3 data-testid="spot-location">
           <span data-testid="spot-city">{spot?.city}</span>,{" "}
-          <span>{spot.state}</span>, <span>{spot.country}</span>
+          <span>{spot?.state}</span>, <span>{spot?.country}</span>
         </h3>
       </div>
       <div className="images-grid__main">
         <div className="images-grid__img-container">
           <img
-            src={mainImage.url}
-            alt={`${spot.name} preview image`}
+            src={mainImage?.url}
+            alt={`${spot?.name} preview image`}
             data-testid="spot-large-image"
           />
         </div>
 
         <div className="images-grid__secondary">
-          {spot.SpotImages.length > 1 ? (
+          {secondaryImages.length > 0 ? (
             <>
-              {spot.SpotImages.map((img) => (
+              {secondaryImages.map((img) => (
                 <div className="images-grid__img-container" key={img.id}>
                   <img
                     src={img.url}
-                    alt={`${spot.name} preview image`}
+                    alt={`${spot?.name} preview image`}
                     data-testid="spot-small-image"
                   />
                 </div>
@@ -151,29 +154,29 @@ console.log(spot)
       <div className="spot-details-grid">
         <div className="spot-details__content">
           <h2 data-testid="spot-host">
-            Hosted by {spot.Owner.firstName} {spot.Owner.lastName}
+            Hosted by {spot?.Owner?.firstName} {spot?.Owner?.lastName}
           </h2>
 
           <div className="spot-details__description">
-            <p data-testid="spot-description">{spot.description}</p>
+            <p data-testid="spot-description">{spot?.description}</p>
           </div>
         </div>
 
         <div className="spot-details__booking-info">
           <div className="spot-details__price" data-testid="spot-callout-box">
-            <h3 data-testid="spot-price">${spot.price}/night</h3>
+            <h3 data-testid="spot-price">${spot?.price}/night</h3>
             <div data-testid="spot-rating">
               <FaStar />{" "}
               {reviews.length === 0 ? (
                 <span>New</span>
               ) : (
                 <span>
-                  <span>{spot.avgStarRating?.toFixed(1)} </span>
+                  <span>{spot?.avgStarRating?.toFixed(1)} </span>
                   <span style={{ position: "relative", bottom: ".375rem" }}>
                     .
                   </span>{" "}
-                  {spot.numReviews} review
-                  {(spot.numReviews > 1 || spot.numReviews === 0) && "s"}
+                  {spot?.numReviews} review
+                  {(spot?.numReviews > 1 || spot?.numReviews === 0) && "s"}
                 </span>
               )}
             </div>
@@ -209,11 +212,10 @@ console.log(spot)
           </>
         ) : (
           <h2 data-id="reviews-heading">
-            <FaStar /> {spot.avgStarRating?.toFixed(1)}{" "}
+            <FaStar /> {spot?.avgStarRating?.toFixed(1)}{" "}
             <span data-testid="review-count">
               <span style={{ position: "relative", bottom: ".375rem" }}>.</span>{" "}
-              {spot.numReviews} review
-              {spot.numReviews > 1 && "s"}
+              {spot?.numReviews} review{spot?.numReviews !== 1 && "s"}
             </span>
           </h2>
         )}

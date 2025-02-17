@@ -4,6 +4,8 @@
     right: 0;
     left: 0;
     bottom: 0;
+    border: 1px solid #ccc;
+    border-radius: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -21,4 +23,5 @@
   #modal-content {
     position: absolute;
     background-color: white;
+    border-radius: 10px;
   }

@@ -51,8 +51,8 @@
   cursor: pointer;
   font-size: 1.75rem;
   color: #fff0b4;
-  background-color: transparent;
-  border: 1px solid #fff0b4;
+  background-color:#f0b478;
+  border: 1px solid #f0b478;
   border-radius: 0.5rem;
   display: flex;
   justify-content: center;
@@ -105,10 +105,12 @@
 
 .profile-dropdown__link:hover {
   background-color: #f0b478;
+  cursor: pointer;
 }
 
 .profile-dropdown__link:hover button {
   color: #a0b48c;
+  cursor: pointer;
 }
 
 .profile-dropdown li {

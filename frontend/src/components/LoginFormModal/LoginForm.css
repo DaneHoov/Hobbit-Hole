@@ -1,20 +1,26 @@
+.login-form-container {
+  background-color: transparent;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
 .login-form {
   display: flex;
   flex-direction: column;
   padding: 0 0.75rem;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 .login-form__demo-user {
   align-self: center;
-}
-
-.login-form__demo-user button {
   font-size: 1.1rem;
   background-color: transparent;
   border: none;
   outline: none;
   text-decoration: underline;
-  color: #f0f0b4;
+  color: #171af5;
   cursor: pointer;
 }
 
@@ -41,25 +47,24 @@ input:focus {
   box-shadow: 0 8px 4px rgba(0, 0, 0, 0.2);
 }
 
-.label {
+label {
   position: absolute;
   top: 10px;
   left: 10px;
-  transition: all 0.2s ease;
+  transition: all 0.2s ease-in-out;
   pointer-events: none;
-  color: #aaa;
-  width: 100%;
+  color: #999;
 }
 
-input:focus + .label,
-.label.active {
+input:focus + label,
+label.active {
   top: -20px;
-  left: 0;
+  left: 10px;
   font-size: 14px;
   color: #000;
 }
 
-.login-form button[type="submit"] {
+button[type="submit"] {
   display: flex;
   width: 100%;
   justify-content: center;
@@ -68,12 +73,24 @@ input:focus + .label,
   font-size: 1.1rem;
   margin-top: 20px;
   background-color: #f0b478;
-  color: #a0b48c;
+  color: black;
   border: none;
   border-radius: 10px;
   padding: 10px 20px;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
+}
+
+button[type="submit"]:disabled {
+  background-color: #cccccc; /* Gray background for disabled button */
+  color: #999999; /* Dark gray text for disabled button */
+  cursor: not-allowed; /* Not-allowed cursor for disabled button */
+  opacity: 0.7; /* Slightly transparent effect */
+}
+
+button[type="submit"]:disabled:hover {
+  background-color: #cccccc; /* No hover effect for disabled button */
+  cursor: not-allowed; /* Maintain not-allowed cursor */
 }
 
 .login-form__error {
