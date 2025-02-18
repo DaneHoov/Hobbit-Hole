@@ -175,8 +175,8 @@ const SpotDetails = () => {
                   <span style={{ position: "relative", bottom: ".375rem" }}>
                     .
                   </span>{" "}
-                  {spot?.numReviews} review
-                  {(spot?.numReviews > 1 || spot?.numReviews === 0) && "s"}
+                  {spot?.numReviews}{" "}
+                  {spot?.numReviews === 1 ? "Review" : "Reviews"}
                 </span>
               )}
             </div>
@@ -215,7 +215,7 @@ const SpotDetails = () => {
             <FaStar /> {spot?.avgStarRating?.toFixed(1)}{" "}
             <span data-testid="review-count">
               <span style={{ position: "relative", bottom: ".375rem" }}>.</span>{" "}
-              {spot?.numReviews} review{spot?.numReviews !== 1 && "s"}
+              {spot?.numReviews} {spot?.numReviews === 1 ? "Review" : "Reviews"}
             </span>
           </h2>
         )}

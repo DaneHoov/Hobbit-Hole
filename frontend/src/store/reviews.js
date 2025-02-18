@@ -1,4 +1,5 @@
 import { csrfFetch } from "./csrf";
+import { fetchSpotDetails } from "./spots";
 
 const SET_REVIEWS = "reviews/SET_REVIEWS";
 const ADD_REVIEW = "reviews/ADD_REVIEW";
@@ -8,28 +9,28 @@ const SET_REVIEW_ERROR = "reviews/SET_REVIEW_ERROR";
 export const setReviews = (reviews) => {
   return {
     type: SET_REVIEWS,
-    payload: reviews
+    payload: reviews,
   };
 };
 
 export const addReview = (review) => {
   return {
     type: ADD_REVIEW,
-    payload: review
+    payload: review,
   };
 };
 
 export const deleteReview = (reviewId) => {
   return {
     type: DELETE_REVIEW,
-    payload: reviewId
+    payload: reviewId,
   };
 };
 
 export const setReviewError = (error) => {
   return {
     type: SET_REVIEW_ERROR,
-    payload: error
+    payload: error,
   };
 };
 
@@ -37,7 +38,6 @@ export const fetchReviews = (spotId) => async (dispatch) => {
   try {
     const response = await csrfFetch(`/api/spots/${spotId}/reviews`);
     const data = await response.json();
-    console.log(`REVIEW DATA FOR SPOT ID ${spotId}`, data.Reviews);
     dispatch(setReviews(data.Reviews));
   } catch (error) {
     dispatch(setReviewError(error.errors || "Error deleting review"));
@@ -48,13 +48,14 @@ export const addNewReview = (spotId, review) => async (dispatch) => {
   try {
     const response = await csrfFetch(`/api/spots/${spotId}/reviews`, {
       method: "POST",
-      body: JSON.stringify(review)
+      body: JSON.stringify(review),
     });
 
     if (response.ok) {
       const newReview = await response.json();
       dispatch(addReview(newReview));
       dispatch(fetchReviews(spotId));
+      dispatch(fetchSpotDetails(spotId));
       return true;
     } else {
       const errorData = await response.json();
@@ -70,7 +71,7 @@ export const removeReview = (spotId, reviewId) => async (dispatch) => {
     const response = await csrfFetch(
       `/api/spots/${spotId}/reviews/${reviewId}`,
       {
-        method: "DELETE"
+        method: "DELETE",
       }
     );
 
@@ -88,7 +89,7 @@ export const removeReview = (spotId, reviewId) => async (dispatch) => {
 
 const initialState = {
   reviewsBySpot: {},
-  error: null
+  error: null,
 };
 
 const reviewsReducer = (state = initialState, action) => {
@@ -101,9 +102,9 @@ const reviewsReducer = (state = initialState, action) => {
         ...state,
         reviewsBySpot: {
           ...state.reviewsBySpot,
-          [spotId]: payload
+          [spotId]: payload,
         },
-        error: null
+        error: null,
       };
     }
 
@@ -111,11 +112,12 @@ const reviewsReducer = (state = initialState, action) => {
       const { payload } = action;
       const { spotId } = payload;
       return {
+        ...state,
         reviewsBySpot: {
           ...state.reviewsBySpot,
-          [spotId]: [payload, ...(state.reviewsBySpot[spotId] || [])]
+          [spotId]: [payload, ...(state.reviewsBySpot[spotId] || [])],
         },
-        error: null
+        error: null,
       };
     }
 
@@ -123,34 +125,55 @@ const reviewsReducer = (state = initialState, action) => {
       const { payload: reviewId } = action;
       let spotId = null;
 
-      // Find the spotId that contains the review to delete
       for (const id of Object.keys(state.reviewsBySpot)) {
         const reviews = state.reviewsBySpot[id];
         if (reviews.find((review) => review.id === reviewId)) {
           spotId = id;
-          break; // Exit the loop once the spotId is found
+          break;
         }
       }
 
-      if (!spotId) return state; // If no spotId found, return current state
+      if (!spotId) return state;
+
+      const updatedReviews = state.reviewsBySpot[spotId].filter(
+        (review) => review.id !== reviewId
+      );
+      const numReviews = updatedReviews.length;
+      const avgStarRating =
+        updatedReviews.reduce((acc, review) => acc + review.stars, 0) /
+        numReviews;
 
       // Filter out the deleted review from the reviews array
       return {
         ...state,
         reviewsBySpot: {
           ...state.reviewsBySpot,
-          [spotId]: state.reviewsBySpot[spotId].filter(
-            (review) => review.id !== reviewId
-          )
+          [spotId]: updatedReviews,
         },
-        error: null
+        spotDetails: {
+          ...state.spotDetails,
+          numReviews,
+          avgStarRating,
+        },
+        error: null,
       };
+
+      // return {
+      //   ...state,
+      //   reviewsBySpot: {
+      //     ...state.reviewsBySpot,
+      //     [spotId]: state.reviewsBySpot[spotId].filter(
+      //       (review) => review.id !== reviewId
+      //     )
+      //   },
+      //   error: null
+      // };
     }
 
     case SET_REVIEW_ERROR: {
       return {
         ...state,
-        error: action.payload
+        error: action.payload,
       };
     }
 

@@ -3,6 +3,7 @@ import "./ReviewModal.css";
 import { useModal } from "../../context/Modal";
 import { FaStar } from "react-icons/fa6";
 import * as reviewActions from "../../store/reviews";
+import * as spotActions from "../../store/spots";
 import { useDispatch } from "react-redux";
 
 const RatingStars = ({ rating, setRating }) => {
@@ -37,7 +38,7 @@ const ReviewModal = ({ spotId }) => {
 
     const reviewData = {
       review: reviewInput,
-      stars: rating
+      stars: rating,
     };
 
     const response = await dispatch(
@@ -50,6 +51,7 @@ const ReviewModal = ({ spotId }) => {
       alert("Thank you for your review!");
       closeModal();
       await dispatch(reviewActions.fetchReviews(spotId));
+      await dispatch(spotActions.fetchSpotDetails(spotId));
     }
   };
 
