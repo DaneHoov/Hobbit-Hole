@@ -35,7 +35,7 @@ const DeleteReviewModal = ({ spotId, review }) => {
   const { closeModal } = useModal();
 
   const handleDeleteReview = () => {
-    const isRemoved = dispatch(reviewActions.removeReview(spotId, review.id));
+    const isRemoved = dispatch(reviewActions.deleteReview(spotId, review.id));
     if (isRemoved) {
       alert("Review Deleted");
       dispatch(reviewActions.fetchReviews(spotId));
