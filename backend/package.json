@@ -12,7 +12,8 @@
     "build": "node psql-setup-script.js",
     "migrate": "npx --require dotenv/config sequelize db:migrate",
     "seed:all": "npx --require dotenv/config sequelize db:seed:all",
-    "seed:undo:all": "npx --require dotenv/config sequelize db:seed:undo:all"
+    "seed:undo:all": "npx --require dotenv/config sequelize db:seed:undo:all",
+    "reset:db": "rm db/dev.db && npm run migrate && npm run seed:all"
   },
   "keywords": [],
   "author": "",
