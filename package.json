@@ -12,12 +12,15 @@
   "scripts": {
     "install": "npm --prefix backend install backend",
     "dev:backend": "npm install --prefix backend start",
-    "sequelize": "npm run --prefix backend sequelize",
+    "sequelize": "npx --prefix backend sequelize",
+    "migrate": "npx --require dotenv/config --prefix backend sequelize db:migrate",
     "sequelize-cli": "npm run --prefix backend sequelize-cli",
     "start": "npm start --prefix backend",
     "build": "npm run --prefix backend build"
   },
   "devDependencies": {
-    "redux-logger": "^3.0.6"
+    "dotenv": "^16.5.0",
+    "redux-logger": "^3.0.6",
+    "sequelize-cli": "^6.6.3"
   }
 }
