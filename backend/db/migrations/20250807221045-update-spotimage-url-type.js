@@ -2,16 +2,22 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    return queryInterface.changeColumn('SpotImages', 'url', {
+    const schema = process.env.SCHEMA;
+    const table = schema ? { tableName: 'SpotImages', schema } : 'SpotImages';
+
+    return queryInterface.changeColumn(table, 'url', {
       type: Sequelize.TEXT,
-      allowNull: false
+      allowNull: false,
     });
   },
 
   down: async (queryInterface, Sequelize) => {
-    return queryInterface.changeColumn('SpotImages', 'url', {
+    const schema = process.env.SCHEMA;
+    const table = schema ? { tableName: 'SpotImages', schema } : 'SpotImages';
+
+    return queryInterface.changeColumn(table, 'url', {
       type: Sequelize.STRING,
-      allowNull: false
+      allowNull: false,
     });
   }
 };
